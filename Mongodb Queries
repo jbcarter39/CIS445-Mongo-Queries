@@ -1,0 +1,59 @@
+John Carter
+Oct. 16th, 2018
+jcarter6@una.edu
+
+//Select all the products and the category that the product is in.
+db.product.find(
+  {},
+  {name: 1, category: 1, _id: 0}
+);
+
+//How many collections needed to be joined to recover the data? 0
+//How many in MySQL?2
+//What sort of redundancy is present in either? Having to specify that the name and category should be displayed.
+
+//Select the product name and the category name of all the products
+db.product.find(
+  {},
+  {name: 1, category: 1, _id: 0}
+);
+
+//Select all the products, the categories they belong to, and the company the product is made by.
+db.product.find(
+  {},
+  {name: 1, category: 1, company: 1, _id: 0}
+
+);
+  
+  //How much easier is this query compared to MySQL? Very easy.
+  //What cost does this easy query come with? Not all the products include the company and category.
+
+
+//Update the company “Stanley” to “Stanley Black and Decker” and re-run
+db.product.update(
+  {company: "Stanley"},
+  {$set: {company: "Stanley Black and Decker"}},
+  { multi: true }
+);
+  //How many documents needed to be updated? 1
+  //How many rows would MySQL have required? 5
+
+
+//Select all the products in the tools category with a price greater than 10.00.
+db.product.find(
+  {category: "Tools", price: {$gt: 10}},
+  {name: 1, category: 1,  _id: 0}
+);
+ 
+ //Now only those made by Stanley Black and Decker.
+db.product.find(
+  {category: "Tools", price: {$gt: 10}, company: "Stanley Black and Decker"},
+  {name: 1, category: 1, company: 1,_id: 0}
+);
+
+//Delete the crest company.
+db.product.remove(
+  {company: "Crest"}
+);
+  //Any problems? Every document with the Crest company was removed.
+
